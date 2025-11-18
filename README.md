@@ -39,54 +39,28 @@ Spark provides an in-memory computing framework, making it 100x faster than trad
 # 3. Spark Architecture Overview
 3.1 Understanding the Key Components of the Spark Architecture
 
-Driver Program:
+Driver:
 
-* The main program that runs the SparkContext.
+Plans and controls the whole job
 
-* Responsible for converting user code into tasks.
+Converts code → tasks for executors
 
-* Schedules and coordinates tasks across executors.
+SparkContext:
+
+Establishes connection to cluster manager
 
 Cluster Manager:
 
-* Allocates resources for Spark applications.
+Example: YARN, Standalone, Mesos, Kubernetes
 
-* Examples: YARN, Mesos, Kubernetes, or Standalone cluster manager.
+Decides how many executors to give
 
 Executors:
 
-* Worker processes that run on nodes to execute tasks.
+Perform the actual computation
 
-* Store data and perform computations.
+Store data in memory
 
 Tasks:
 
-* Smallest unit of work sent to executors.
-
-RDD (Resilient Distributed Dataset):
-
-* Core data structure of Spark.
-
-Immutable and distributed collection of data.
-
-3.2 Interaction Between Components During Execution
-
-* Step 1 – Job Submission:
-
-User submits the Spark application to the Driver program.
-
-* Step 2 – Resource Allocation:
-
-The Cluster Manager assigns resources (executors) to the Driver.
-
-* Step 3 – Task Distribution:
-
-The Driver divides the job into stages and tasks, sending them to Executors.
-
-* Step 4 – Execution:
-
-Executors perform computations and store intermediate results in memory.
-
-* Step 5 – Result Collection:
-
-The Driver collects results from Executors and returns the output to user
+Part of job executed on executor cores
