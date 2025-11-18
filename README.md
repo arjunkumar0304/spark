@@ -4,7 +4,6 @@
  
  * Hadoop is an open-source framework used to store and process big data efficiently across many computers instead of one.
 
- * It allows you to handle huge volumes of data (GBs, TBs, PBs) by splitting the data into chunks and processing them in parallel across multiple machines (called nodes).
 
 # Why Hadoop?
 Earlier, a single computer wasn’t enough to handle large data.
@@ -24,19 +23,9 @@ Hadoop solved this by using distributed computing — breaking data and tasks in
 
 Apache Spark is an open-source, distributed computing system designed for fast data processing.
 
-It was developed at UC Berkeley’s AMPLab in 2009 and became an Apache project in 2014.
 
 Spark provides an in-memory computing framework, making it 100x faster than traditional Hadoop MapReduce in some workloads.
 
-# Key Advantages:
-
-* Speed: Performs in-memory computation, reducing disk I/O.
-
-* Ease of Use: APIs available in Python, Scala, Java, and R.
-
-* Versatility: Supports batch processing, streaming, machine learning, and graph processing.
-
-* Integration: Works with HDFS, Hive, Cassandra, HBase, and Amazon S3.
 
 | Feature                 | Hadoop MapReduce         | Apache Spark                       |
 | ----------------------- | ------------------------ | ---------------------------------- |
