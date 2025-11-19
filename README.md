@@ -55,6 +55,7 @@ Example: YARN, Standalone, Mesos, Kubernetes
 
 Decides how many executors to give
 
+
 Executors:
 
 Perform the actual computation
@@ -64,3 +65,139 @@ Store data in memory
 Tasks:
 
 Part of job executed on executor cores
+
+
+# spark components
+
+
+# Driver
+
+First, the Driver starts the Spark application.
+
+Driver runs the main() function and creates SparkContext/SparkSession.
+
+It converts your code into tasks, builds the DAG, and schedules tasks.
+
+It coordinates the entire job.
+
+This is the first component to start.
+
+# Cluster Manager
+
+After the Driver starts, it contacts the Cluster Manager.
+
+Cluster Manager's job is to allocate resources (CPU, memory).
+
+It provides the executors needed to run the application.
+
+
+# Executors
+
+Once resources are allocated, Executors are launched on worker nodes.
+
+Executors run tasks in parallel.
+
+They also store data in memory or disk.
+
+After completing tasks, they return results to the Driver.
+
+Executors keep running until the application ends.
+
+# core concept in spark
+
+# RDD (Resilient Distributed Dataset)
+
+RDD is the basic data structure in Spark.
+
+It is immutable (cannot be changed once created).
+
+It is distributed across multiple nodes in the cluster.
+
+Supports parallel processing.
+
+
+# Spark Core
+
+Spark Core is the foundation of the entire Spark ecosystem.
+
+It contains:
+
+RDDs
+
+Task scheduling
+
+Memory management
+
+Fault tolerance
+
+Job execution engine
+
+All other components (SQL, Streaming, MLlib, GraphX) are built on top of Spark Core.
+
+*  Spark Core = the engine that runs everything in Spark.
+
+# Spark SQL
+
+Module used for structured and semi-structured data.
+
+Works with DataFrames and Datasets.
+
+Allows SQL queries using:
+
+spark.sql()
+
+DataFrame API
+
+Optimized by Catalyst Optimizer.
+
+* Spark SQL = handles structured data using DataFrames + SQL.
+
+# Spark Streaming
+
+Used for near real-time data processing.
+
+Processes data in micro-batches.
+
+Can read from:
+
+Kafka
+
+Files
+
+New version is Structured Streaming (more advanced).
+
+* Spark Streaming = real-time data processing engine.
+
+# MLlib (Machine Learning Library)
+
+Spark’s built-in machine learning library.
+
+Supports:
+
+Classification
+
+Regression
+
+Clustering
+
+Feature engineering
+
+Model evaluation
+
+* MLlib = scalable ML algorithms running on distributed data.
+
+# GraphX
+
+Spark’s graph processing API.
+
+Used for:
+
+PageRank
+
+Connected components
+
+Graph analytics
+
+Uses RDDs internally.
+
+ * GraphX = library for graph-based computations.
