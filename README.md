@@ -67,7 +67,7 @@ Tasks:
 Part of job executed on executor cores
 
 
-# spark components
+#  4 spark components
 
 
 # Driver
@@ -103,7 +103,7 @@ After completing tasks, they return results to the Driver.
 
 Executors keep running until the application ends.
 
-# core concept in spark
+# 4.1 core concept in spark
 
 # RDD (Resilient Distributed Dataset)
 
@@ -201,3 +201,164 @@ Graph analytics
 Uses RDDs internally.
 
  * GraphX = library for graph-based computations.
+
+
+# 5.1 RDD, DataFrame, Dataset – Difference & Conversion
+
+# RDD (Resilient Distributed Dataset)
+
+* Lowest-level abstraction in Spark.
+
+* Works with unstructured data.
+
+* You write code using Java/Python/Scala functions.
+
+* No schema, no automatic optimization.
+
+* Slowest among the three.
+
+* Best when you need full low-level control (custom transformations).
+
+#  DataFrame
+
+* Structured data (rows & columns like a table).
+
+* Has schema.
+
+* Built on top of Spark SQL engine.
+
+* Uses Catalyst Optimizer → much faster than RDD.
+
+* Operations are simple, SQL-like & optimized.
+
+* Best for ETL, SQL queries, analytics.
+
+# Dataset (Scala & Java only)
+
+* (Not available in Python)
+
+* Combination of RDD (type safety) + DataFrame (performance).
+
+* Strongly typed.
+
+* Also uses Catalyst Optimizer.
+
+* Best for type-safe, high-performance pipeline
+
+
+
+# Converting Between RDD, DataFrame & Dataset
+
+1️⃣ RDD → DataFrame
+Scala
+val df = rdd.toDF()
+
+Python
+df = rdd.toDF(schema)
+
+2️⃣ RDD → Dataset (Scala only)
+case class Person(name: String, age: Int)
+val ds = rdd.map(x => Person(x._1, x._2)).toDS()
+
+3️⃣ DataFrame → RDD
+val rdd = df.rdd
+
+
+Python:
+
+rdd = df.rdd
+
+4️⃣ DataFrame → Dataset (Scala only)
+case class Person(name: String, age: Int)
+val ds = df.as[Person]
+
+5️⃣ Dataset → DataFrame
+val df = ds.toDF()
+
+6️⃣ Dataset → RDD
+val rdd = ds.rdd
+
+
+
+# transformation
+
+A transformation in Spark is an operation that creates a new RDD/DataFrame from an existing one.
+
+Transformations are lazy — they do not execute immediately.
+Spark waits until an action (like count(), show(), collect()) is called.
+
+# Narrow Transformation 
+
+A Narrow Transformation is when data does NOT move between partitions.
+
+👉 Each partition uses only its own data
+👉 No shuffle, no network, no data transfer
+👉 Very fast and efficient
+
+# Examples
+
+map()
+
+filter()
+
+flatMap()
+
+mapPartitions()
+
+union() (if partitions align)
+
+# Wide Transformations
+
+Wide transformations are operations where data from one partition may need to move to multiple partitions.
+
+* Involves data shuffling
+* Slower, network heavy, requires sorting/grouping
+
+Examples
+
+reduceByKey
+
+groupBy
+
+groupByKey
+
+join
+
+distinct
+
+orderBy / sortBy
+
+#  Understanding Shuffling in Spark
+# What is Shuffling?
+
+Shuffling is the process of redistributing data across partitions in Spark.
+It happens when a task needs data from a different partition.
+
+
+# Examples of Narrow and Wide Transformations
+
+# Narrow Transformations (NO shuffle)
+
+Definition
+Output partition depends only on one input partition. No data movement, faster.
+
+| Operation         | Why it is Narrow?                        |
+| ----------------- | ---------------------------------------- |
+| `map()`           | Each element processed independently     |
+| `filter()`        | Only checks conditions on same partition |
+| `flatMap()`       | Same as map                              |
+| `mapPartitions()` | Stays inside the partition               |
+
+# Wide Transformations (Shuffle happens)
+Definition
+
+Output partition depends on multiple input partitions. Requires data movement (shuffle)
+
+| Operation       | Why it is Wide?                         |
+| --------------- | --------------------------------------- |
+| `reduceByKey()` | Needs all values of same key            |
+| `groupByKey()`  | Groups keys across partitions           |
+| `join()`        | Matches keys from two datasets          |
+| `distinct()`    | Removes duplicates → needs global check |
+| `sortByKey()`   | Needs all keys to sort properly         |
+
