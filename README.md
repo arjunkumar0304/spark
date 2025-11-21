@@ -362,3 +362,14 @@ Output partition depends on multiple input partitions. Requires data movement (s
 | `distinct()`    | Removes duplicates → needs global check |
 | `sortByKey()`   | Needs all keys to sort properly         |
 
+
+# Basic practices (RDD, Dataframe)
+<img width="1231" height="710" alt="Screenshot 2025-11-21 175456" src="https://github.com/user-attachments/assets/12b9fb0e-5e7c-45bc-be2f-d372611a787a" />
+
+
+
+<img width="1048" height="420" alt="Screenshot 2025-11-21 175525" src="https://github.com/user-attachments/assets/ac90e2ab-f269-4585-8dd8-5fd79a0d1722" />
+
+
+
+<img width="1264" height="723" alt="Screenshot 2025-11-21 175544" src="https://github.com/user-attachments/assets/85bb3bc2-4409-4deb-ad23-92ed1ad2402e" />
